@@ -1,0 +1,97 @@
+{
+  "name": "taxpro-accounting",
+  "version": "1.0.0",
+  "description": "Professional accounting and tax management system for large companies in Germany",
+  "main": "server/index.js",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "cd server && npm start",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "cd server && npm run build",
+    "build:client": "cd client && npm run build",
+    "test": "npm run test:server && npm run test:client",
+    "test:server": "cd server && npm test",
+    "test:client": "cd client && npm test",
+    "test:watch": "concurrently \"npm run test:server -- --watch\" \"npm run test:client -- --watchAll\"",
+    "lint": "npm run lint:server && npm run lint:client",
+    "lint:server": "cd server && npm run lint",
+    "lint:client": "cd client && npm run lint",
+    "lint:fix": "npm run lint:server -- --fix && npm run lint:client -- --fix",
+    "setup": "chmod +x setup.sh && ./setup.sh",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "docker:build": "docker-compose build",
+    "db:migrate": "cd server && npx sequelize-cli db:migrate",
+    "db:seed": "cd server && npx sequelize-cli db:seed:all",
+    "db:reset": "cd server && npx sequelize-cli db:migrate:undo:all && npm run db:migrate && npm run db:seed",
+    "postinstall": "npm run install:deps",
+    "install:deps": "cd server && npm install && cd ../client && npm install",
+    "clean": "rm -rf node_modules server/node_modules client/node_modules",
+    "clean:build": "rm -rf server/dist client/build",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.0",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.7"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
+  "keywords": [
+    "accounting",
+    "tax",
+    "business",
+    "germany",
+    "enterprise",
+    "fintech",
+    "react",
+    "typescript",
+    "nodejs",
+    "postgresql"
+  ],
+  "author": {
+    "name": "TaxPro Development Team",
+    "email": "dev@taxpro.de",
+    "url": "https://taxpro.de"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taxpro/taxpro-accounting.git"
+  },
+  "bugs": {
+    "url": "https://github.com/taxpro/taxpro-accounting/issues"
+  },
+  "homepage": "https://taxpro.de"
+} 

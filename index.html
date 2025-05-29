@@ -1,0 +1,2135 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">TaxPro - Professional Accounting</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Modern Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    <!-- Font Awesome for additional icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js for modern charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Modern Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <div class="logo-icon">
+                        <i data-feather="trending-up"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h2>TaxPro</h2>
+                        <span>Professional</span>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="sidebar-menu">
+                <div class="menu-section">
+                    <span class="menu-section-title">Dashboard</span>
+                    <ul>
+                        <li class="menu-item active" onclick="navigateToSection('schnellstart')">
+                            <i data-feather="home"></i>
+                            <span>Schnellstart</span>
+                        </li>
+                        <li class="menu-item" onclick="navigateToSection('dashboard')">
+                            <i data-feather="bar-chart-2"></i>
+                            <span>Übersicht</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="menu-section">
+                    <span class="menu-section-title">Verkauf</span>
+                    <ul>
+                        <li class="menu-item" onclick="navigateToSection('angebote')">
+                            <i data-feather="file-text"></i>
+                            <span>Angebote</span>
+                        </li>
+                        <li class="menu-item" onclick="navigateToSection('auftragsbestatigungen')">
+                            <i data-feather="check-circle"></i>
+                            <span>Auftragsbestätigungen</span>
+                        </li>
+                        <li class="menu-item" onclick="navigateToSection('lieferscheine')">
+                            <i data-feather="truck"></i>
+                            <span>Lieferscheine</span>
+                        </li>
+                        <li class="menu-item has-submenu" onclick="toggleSubmenu(this)">
+                            <i data-feather="file-plus"></i>
+                            <span>Rechnungen</span>
+                            <i data-feather="chevron-down" class="arrow"></i>
+                            <div class="submenu">
+                                <ul>
+                                    <li class="submenu-item" onclick="navigateToSection('neue-rechnung')">
+                                        <i data-feather="plus"></i>
+                                        <span>Neue Rechnung</span>
+                                    </li>
+                                    <li class="submenu-item" onclick="navigateToSection('rechnungen-liste')">
+                                        <i data-feather="list"></i>
+                                        <span>Rechnungen verwalten</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu-item" onclick="navigateToSection('sonstige-einnahmen')">
+                            <i data-feather="dollar-sign"></i>
+                            <span>Sonstige Einnahmen</span>
+                        </li>
+                        <li class="menu-item" onclick="navigateToSection('mahnungen')">
+                            <i data-feather="alert-triangle"></i>
+                            <span>Mahnungen</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="menu-section">
+                    <span class="menu-section-title">Einkauf</span>
+                    <ul>
+                        <li class="menu-item" onclick="navigateToSection('ausgaben')">
+                            <i data-feather="credit-card"></i>
+                            <span>Ausgaben</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="menu-section">
+                    <span class="menu-section-title">Verwaltung</span>
+                    <ul>
+                        <li class="menu-item" onclick="navigateToSection('kunden')">
+                            <i data-feather="users"></i>
+                            <span>Kunden</span>
+                        </li>
+                        <li class="menu-item" onclick="navigateToSection('berichte')">
+                            <i data-feather="pie-chart"></i>
+                            <span>Berichte</span>
+                        </li>
+                        <li class="menu-item has-submenu" data-section="einstellungen" onclick="toggleSubmenu(this); navigateToSection('einstellungen');">
+                            <i data-feather="settings"></i>
+                            <span>Einstellungen</span>
+                            <i data-feather="chevron-down" class="arrow"></i>
+                            <div class="submenu">
+                                <ul>
+                                    <li class="submenu-item" onclick="navigateToSection('einstellungen-benutzer')">
+                                        <i data-feather="user"></i>
+                                        <span>Benutzer</span>
+                                    </li>
+                                    <li class="submenu-item" onclick="navigateToSection('einstellungen-buchhaltung')">
+                                        <i data-feather="calculator"></i>
+                                        <span>Buchhaltung</span>
+                                    </li>
+                                    <li class="submenu-item" onclick="navigateToSection('einstellungen-unternehmen')">
+                                        <i data-feather="building"></i>
+                                        <span>Unternehmen</span>
+                                    </li>
+                                    <li class="submenu-item" onclick="navigateToSection('einstellungen-system')">
+                                        <i data-feather="settings"></i>
+                                        <span>System</span>
+                                    </li>
+                                    <li class="submenu-item" onclick="navigateToSection('einstellungen-briefpapier')">
+                                        <i data-feather="file-text"></i>
+                                        <span>Briefpapier</span>
+                                    </li>
+                                    <li class="submenu-item" onclick="navigateToSection('einstellungen-textvorlagen')">
+                                        <i data-feather="align-left"></i>
+                                        <span>Textvorlagen</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Modern Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">
+                        <i data-feather="menu"></i>
+                    </button>
+                    <div class="breadcrumb">
+                        <h1 id="page-title">Schnellstart</h1>
+                        <p class="page-subtitle">Willkommen in Ihrem Buchhaltungssystem</p>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="action-btn notification-btn">
+                            <i data-feather="bell"></i>
+                            <span class="notification-badge">3</span>
+                        </button>
+                        <button class="action-btn">
+                            <i data-feather="search"></i>
+                        </button>
+                        <button class="action-btn">
+                            <i data-feather="help-circle"></i>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiM2MzY2ZjEiLz4KPHBhdGggZD0iTTIwIDIwQzIyLjc2MTQgMjAgMjUgMTcuNzYxNCAyNSAxNUMyNSAxMi4yMzg2IDIyLjc2MTQgMTAgMjAgMTBDMTcuMjM4NiAxMCAxNSAxMi4yMzg2IDE1IDE1QzE1IDE3Ljc2MTQgMTcuMjM4NiAyMCAyMCAyMFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0zMCAzMEMzMCAyNS4wMjk0IDI1LjUyMjggMjEgMjAgMjFDMTQuNDc3MiAyMSAxMCAyNS4wMjk0IDEwIDMwSAzMFoiIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=" alt="User Avatar">
+                        </div>
+                        <div class="user-info">
+                            <span class="user-name">Admin User</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+                        <i data-feather="chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Schnellstart Section -->
+                <section id="schnellstart-section" class="content-section active">
+                    <!-- Hero Section -->
+                    <div class="hero-section">
+                        <div class="hero-content">
+                            <div class="hero-text">
+                                <div class="hero-badge">
+                                    <i data-feather="zap"></i>
+                                    <span>Neu & Verbessert</span>
+                                </div>
+                                <h1>Willkommen bei TaxPro</h1>
+                                <p>Die modernste Buchhaltungslösung für Ihr Unternehmen. Sparen Sie Zeit, reduzieren Sie Fehler und maximieren Sie Ihre Effizienz.</p>
+                                <div class="hero-buttons">
+                                    <button class="btn btn-primary" onclick="navigateToSection('neue-rechnung')">
+                                        <i data-feather="plus-circle"></i>
+                                        Erste Rechnung erstellen
+                                    </button>
+                                    <button class="btn btn-outline" onclick="navigateToSection('dashboard')">
+                                        <i data-feather="bar-chart-2"></i>
+                                        Dashboard anzeigen
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="hero-visual">
+                                <div class="dashboard-preview">
+                                    <div class="preview-header">
+                                        <div class="preview-tabs">
+                                            <div class="tab active"></div>
+                                            <div class="tab"></div>
+                                            <div class="tab"></div>
+                                        </div>
+                                        <div class="preview-controls">
+                                            <div class="control"></div>
+                                            <div class="control"></div>
+                                            <div class="control"></div>
+                                        </div>
+                                    </div>
+                                    <div class="preview-content">
+                                        <div class="preview-stats">
+                                            <div class="stat-mini">
+                                                <div class="stat-icon blue">
+                                                    <i data-feather="trending-up"></i>
+                                                </div>
+                                                <div class="stat-info">
+                                                    <span class="stat-value">€45.2K</span>
+                                                    <span class="stat-label">Umsatz</span>
+                                                </div>
+                                            </div>
+                                            <div class="stat-mini">
+                                                <div class="stat-icon green">
+                                                    <i data-feather="users"></i>
+                                                </div>
+                                                <div class="stat-info">
+                                                    <span class="stat-value">156</span>
+                                                    <span class="stat-label">Kunden</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="preview-chart">
+                                            <canvas id="preview-chart-canvas" width="200" height="100"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Floating Cards -->
+                                <div class="floating-card card-1">
+                                    <i data-feather="check-circle"></i>
+                                    <span>Automatische Berechnung</span>
+                                </div>
+                                <div class="floating-card card-2">
+                                    <i data-feather="shield"></i>
+                                    <span>100% Sicher</span>
+                                </div>
+                                <div class="floating-card card-3">
+                                    <i data-feather="clock"></i>
+                                    <span>24/7 Verfügbar</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Grid -->
+                    <div class="quick-actions-section">
+                        <h2 class="section-title">
+                            <i data-feather="zap"></i>
+                            Schnelle Aktionen
+                        </h2>
+                        <div class="quick-actions-grid">
+                            <div class="action-card primary" onclick="navigateToSection('neue-rechnung')">
+                                <div class="action-icon">
+                                    <i data-feather="file-plus"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h3>Rechnung erstellen</h3>
+                                    <p>Erstellen Sie professionelle Rechnungen in Sekunden</p>
+                                    <div class="action-stats">
+                                        <span><i data-feather="clock"></i> 2 Min</span>
+                                    </div>
+                                </div>
+                                <div class="action-arrow">
+                                    <i data-feather="arrow-right"></i>
+                                </div>
+                            </div>
+
+                            <div class="action-card success" onclick="navigateToSection('kunden')">
+                                <div class="action-icon">
+                                    <i data-feather="user-plus"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h3>Kunde hinzufügen</h3>
+                                    <p>Verwalten Sie Ihre Kundendaten zentral</p>
+                                    <div class="action-stats">
+                                        <span><i data-feather="clock"></i> 1 Min</span>
+                                    </div>
+                                </div>
+                                <div class="action-arrow">
+                                    <i data-feather="arrow-right"></i>
+                                </div>
+                            </div>
+
+                            <div class="action-card warning" onclick="navigateToSection('ausgaben')">
+                                <div class="action-icon">
+                                    <i data-feather="receipt"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h3>Ausgabe erfassen</h3>
+                                    <p>Dokumentieren Sie Ihre Geschäftsausgaben</p>
+                                    <div class="action-stats">
+                                        <span><i data-feather="clock"></i> 30 Sek</span>
+                                    </div>
+                                </div>
+                                <div class="action-arrow">
+                                    <i data-feather="arrow-right"></i>
+                                </div>
+                            </div>
+
+                            <div class="action-card info" onclick="navigateToSection('dashboard')">
+                                <div class="action-icon">
+                                    <i data-feather="pie-chart"></i>
+                                </div>
+                                <div class="action-content">
+                                    <h3>Berichte anzeigen</h3>
+                                    <p>Analysieren Sie Ihre Geschäftsdaten</p>
+                                    <div class="action-stats">
+                                        <span><i data-feather="eye"></i> Live Daten</span>
+                                    </div>
+                                </div>
+                                <div class="action-arrow">
+                                    <i data-feather="arrow-right"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Features Overview -->
+                    <div class="features-overview">
+                        <div class="features-header">
+                            <h2 class="section-title">
+                                <i data-feather="star"></i>
+                                Warum TaxPro wählen?
+                            </h2>
+                            <p>Entdecken Sie die mächtigen Features, die Ihre Buchhaltung revolutionieren</p>
+                        </div>
+                        
+                        <div class="features-grid">
+                            <div class="feature-card">
+                                <div class="feature-image">
+                                    <div class="feature-icon-large">
+                                        <i data-feather="trending-up"></i>
+                                    </div>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>Intelligente Automatisierung</h3>
+                                    <p>Automatische Berechnungen, Steuerermittlung und Rechnungsnummerierung sparen wertvolle Zeit.</p>
+                                    <ul class="feature-benefits">
+                                        <li><i data-feather="check"></i> Automatische MwSt.-Berechnung</li>
+                                        <li><i data-feather="check"></i> Smart Rechnungsnummerierung</li>
+                                        <li><i data-feather="check"></i> Erinnerungen & Mahnungen</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="feature-card">
+                                <div class="feature-image">
+                                    <div class="feature-icon-large">
+                                        <i data-feather="shield-check"></i>
+                                    </div>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>Höchste Sicherheit</h3>
+                                    <p>Ihre Daten sind mit modernster Verschlüsselung und lokaler Speicherung vollständig geschützt.</p>
+                                    <ul class="feature-benefits">
+                                        <li><i data-feather="check"></i> Lokale Datenspeicherung</li>
+                                        <li><i data-feather="check"></i> SSL Verschlüsselung</li>
+                                        <li><i data-feather="check"></i> Automatische Backups</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="feature-card">
+                                <div class="feature-image">
+                                    <div class="feature-icon-large">
+                                        <i data-feather="smartphone"></i>
+                                    </div>
+                                </div>
+                                <div class="feature-content">
+                                    <h3>Überall verfügbar</h3>
+                                    <p>Arbeiten Sie von jedem Gerät - Desktop, Tablet oder Smartphone mit vollständiger Synchronisation.</p>
+                                    <ul class="feature-benefits">
+                                        <li><i data-feather="check"></i> Responsive Design</li>
+                                        <li><i data-feather="check"></i> Offline Funktionalität</li>
+                                        <li><i data-feather="check"></i> Cross-Platform Support</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Getting Started Steps -->
+                    <div class="getting-started">
+                        <div class="getting-started-header">
+                            <h2 class="section-title">
+                                <i data-feather="play-circle"></i>
+                                In 3 Schritten zur ersten Rechnung
+                            </h2>
+                            <p>Folgen Sie dieser einfachen Anleitung für Ihren perfekten Start</p>
+                        </div>
+                        
+                        <div class="steps-container">
+                            <div class="step-item">
+                                <div class="step-number">
+                                    <span>1</span>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-icon">
+                                        <i data-feather="user-plus"></i>
+                                    </div>
+                                    <h3>Kunde hinzufügen</h3>
+                                    <p>Erstellen Sie Ihren ersten Kundeneintrag mit allen wichtigen Informationen</p>
+                                    <button class="btn btn-outline btn-sm" onclick="navigateToSection('kunden')">
+                                        <i data-feather="arrow-right"></i>
+                                        Kunde hinzufügen
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-number">
+                                    <span>2</span>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-icon">
+                                        <i data-feather="file-text"></i>
+                                    </div>
+                                    <h3>Rechnung erstellen</h3>
+                                    <p>Nutzen Sie unseren intuitiven Editor für professionelle Rechnungen</p>
+                                    <button class="btn btn-outline btn-sm" onclick="navigateToSection('neue-rechnung')">
+                                        <i data-feather="arrow-right"></i>
+                                        Rechnung erstellen
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="step-item">
+                                <div class="step-number">
+                                    <span>3</span>
+                                </div>
+                                <div class="step-content">
+                                    <div class="step-icon">
+                                        <i data-feather="send"></i>
+                                    </div>
+                                    <h3>Versenden & Verwalten</h3>
+                                    <p>Versenden Sie Rechnungen und behalten Sie den Überblick über Zahlungen</p>
+                                    <button class="btn btn-outline btn-sm" onclick="navigateToSection('rechnungen-liste')">
+                                        <i data-feather="arrow-right"></i>
+                                        Rechnungen verwalten
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Indicator -->
+                        <div class="progress-indicator">
+                            <div class="progress-line"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Dashboard Section -->
+                <div id="dashboard-section" class="content-section" style="display: none;">
+                    <div class="dashboard-header">
+                        <h1>الداشبورد</h1>
+                        <div class="dashboard-period">
+                            <select id="dashboard-period" class="form-select">
+                                <option value="month">هذا الشهر</option>
+                                <option value="quarter">هذا الربع</option>
+                                <option value="year">هذا العام</option>
+                                <option value="custom">فترة مخصصة</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card income">
+                            <div class="stat-icon">
+                                <i data-feather="trending-up"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-income">€0.00</h3>
+                                <p>إجمالي الإيرادات</p>
+                                <span class="stat-change positive" id="income-change">+5.2%</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card expenses">
+                            <div class="stat-icon">
+                                <i data-feather="trending-down"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-expenses">€0.00</h3>
+                                <p>إجمالي المصروفات</p>
+                                <span class="stat-change negative" id="expenses-change">-2.1%</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card profit">
+                            <div class="stat-icon">
+                                <i data-feather="dollar-sign"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-profit">€0.00</h3>
+                                <p>صافي الربح</p>
+                                <span class="stat-change positive" id="profit-change">+8.5%</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card invoices">
+                            <div class="stat-icon">
+                                <i data-feather="file-text"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="total-invoices">0</h3>
+                                <p>عدد الفواتير</p>
+                                <span class="stat-change positive" id="invoices-change">+12</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts Section -->
+                    <div class="charts-section">
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>تطور الإيرادات والمصروفات</h3>
+                                <div class="chart-controls">
+                                    <button class="chart-btn active" data-period="6m">6 أشهر</button>
+                                    <button class="chart-btn" data-period="1y">سنة</button>
+                                    <button class="chart-btn" data-period="2y">سنتين</button>
+                                </div>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="revenue-chart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="chart-header">
+                                <h3>توزيع المصروفات</h3>
+                            </div>
+                            <div class="chart-wrapper">
+                                <canvas id="expenses-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="dashboard-widgets">
+                        <div class="widget">
+                            <div class="widget-header">
+                                <h3>الفواتير الأخيرة</h3>
+                                <a href="#" onclick="navigateToSection('rechnungen')" class="widget-link">
+                                    عرض الكل <i data-feather="arrow-left"></i>
+                                </a>
+                            </div>
+                            <div class="widget-content">
+                                <div id="recent-invoices-list" class="activity-list">
+                                    <!-- Recent invoices will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="widget">
+                            <div class="widget-header">
+                                <h3>المصروفات الأخيرة</h3>
+                                <a href="#" onclick="navigateToSection('ausgaben')" class="widget-link">
+                                    عرض الكل <i data-feather="arrow-left"></i>
+                                </a>
+                            </div>
+                            <div class="widget-content">
+                                <div id="recent-expenses-list" class="activity-list">
+                                    <!-- Recent expenses will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="widget">
+                            <div class="widget-header">
+                                <h3>الفواتير المستحقة</h3>
+                                <a href="#" onclick="navigateToSection('mahnungen')" class="widget-link">
+                                    عرض الكل <i data-feather="arrow-left"></i>
+                                </a>
+                            </div>
+                            <div class="widget-content">
+                                <div id="overdue-invoices-list" class="activity-list">
+                                    <!-- Overdue invoices will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="dashboard-quick-actions">
+                        <h3>إجراءات سريعة</h3>
+                        <div class="quick-actions-grid">
+                            <button class="quick-action-btn" onclick="navigateToSection('neue-rechnung')">
+                                <i data-feather="plus"></i>
+                                فاتورة جديدة
+                            </button>
+                            <button class="quick-action-btn" onclick="navigateToSection('kunden')">
+                                <i data-feather="user-plus"></i>
+                                عميل جديد
+                            </button>
+                            <button class="quick-action-btn" onclick="navigateToSection('ausgaben')">
+                                <i data-feather="shopping-cart"></i>
+                                مصروف جديد
+                            </button>
+                            <button class="quick-action-btn" onclick="navigateToSection('berichte')">
+                                <i data-feather="bar-chart"></i>
+                                تقرير مالي
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Angebote Section -->
+                <section id="angebote-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Angebote</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-primary" id="neues-angebot-btn">
+                                <i class="fas fa-plus"></i> Neues Angebot
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="angebote-content">
+                        <div class="angebote-info">
+                            <h3>Erstelle dein erstes Angebot.</h3>
+                            <div class="angebote-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Füge Produkte & Dienstleistungen hinzu</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Verschicke deine Angebote per E-Mail oder Post</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Angebot direkt in Auftragsbestätigung umwandeln</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary angebot-erstellen-btn">
+                                <i class="fas fa-plus"></i> Angebot erstellen
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="help-section">
+                        <p>Schaue gerne in unserem Hilfe-Center vorbei. Es gibt außerdem ein 
+                        <a href="#" class="help-link">Video</a> in dem wir dir schnell und einfach die wichtigsten Funktionen erklären.</p>
+                    </div>
+                </section>
+
+                <!-- Auftragsbestätigungen Section -->
+                <section id="auftragsbestatigungen-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Auftragsbestätigungen</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-primary" id="neue-auftragsbestatigung-btn">
+                                <i class="fas fa-plus"></i> Neue Auftragsbestätigung
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table" id="auftragsbestatigungen-table">
+                            <thead>
+                                <tr>
+                                    <th>Nummer</th>
+                                    <th>Kunde</th>
+                                    <th>Datum</th>
+                                    <th>Betrag</th>
+                                    <th>Status</th>
+                                    <th>Aktionen</th>
+                                </tr>
+                            </thead>
+                            <tbody id="auftragsbestatigungen-tbody">
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Lieferscheine Section -->
+                <section id="lieferscheine-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Lieferscheine</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-primary" id="neuer-lieferschein-btn">
+                                <i class="fas fa-plus"></i> Neuer Lieferschein
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table" id="lieferscheine-table">
+                            <thead>
+                                <tr>
+                                    <th>Lieferschein Nr.</th>
+                                    <th>Kunde</th>
+                                    <th>Lieferdatum</th>
+                                    <th>Status</th>
+                                    <th>Aktionen</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lieferscheine-tbody">
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Ausgaben Section -->
+                <section id="ausgaben-section" class="content-section">
+                    <div class="ausgaben-header">
+                        <h1>Sammle und erfasse alle deine Belege –</h1>
+                        <h2>digital und an einem Ort</h2>
+                    </div>
+
+                    <div class="ausgaben-content">
+                        <div class="ausgaben-left">
+                            <div class="ausgaben-features">
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <span class="feature-badge">Neu</span>
+                                        <h3>E-Rechnungen empfangen und verarbeiten</h3>
+                                    </div>
+                                </div>
+
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-robot"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h3>Automatische Belegerkennung</h3>
+                                    </div>
+                                </div>
+
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-hand-pointer"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h3>Per Drag & Drop, App oder E-Mail</h3>
+                                    </div>
+                                </div>
+
+                                <div class="feature-item">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="feature-content">
+                                        <h3>Umsatzsteuer-Voranmeldung füllt sich automatisch</h3>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ausgaben-actions">
+                                <button class="btn btn-primary" id="testbeleg-btn">
+                                    <i class="fas fa-play"></i> Testbeleg nutzen
+                                </button>
+                                <button class="btn btn-secondary" id="ausgabe-erfassen-btn">
+                                    <i class="fas fa-plus"></i> Ausgabe erfassen
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="ausgaben-right">
+                            <div class="ausgaben-preview">
+                                <div class="preview-card">
+                                    <div class="preview-header">
+                                        <span class="accuracy-badge">100% korrekte Erfassung</span>
+                                        <span class="preview-title">E-Rechnung</span>
+                                    </div>
+                                    <div class="preview-content">
+                                        <div class="receipt-mockup">
+                                            <div class="receipt-header">
+                                                <div class="receipt-logo">
+                                                    <i class="fas fa-building"></i>
+                                                </div>
+                                                <div class="receipt-info">
+                                                    <span>Tankstelle</span>
+                                                </div>
+                                            </div>
+                                            <div class="receipt-details">
+                                                <div class="receipt-line"></div>
+                                                <div class="receipt-line"></div>
+                                                <div class="receipt-line short"></div>
+                                                <div class="receipt-total"></div>
+                                            </div>
+                                        </div>
+                                        <div class="automation-badge">
+                                            <i class="fas fa-magic"></i>
+                                            <span>Automatische Belegerkennung</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ausgaben Management Section -->
+                    <div class="ausgaben-management">
+                        <div class="section-header">
+                            <h2>Ausgaben verwalten</h2>
+                            <div class="section-actions">
+                                <button class="btn btn-primary" id="neue-ausgabe-btn">
+                                    <i class="fas fa-plus"></i> Neue Ausgabe
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="filters">
+                            <div class="filter-group">
+                                <label for="ausgaben-kategorie-filter">Kategorie:</label>
+                                <select id="ausgaben-kategorie-filter">
+                                    <option value="">Alle Kategorien</option>
+                                    <option value="bueromaterial">Büromaterial</option>
+                                    <option value="software">Software</option>
+                                    <option value="reisekosten">Reisekosten</option>
+                                    <option value="marketing">Marketing</option>
+                                    <option value="bewirtung">Bewirtung</option>
+                                    <option value="fortbildung">Fortbildung</option>
+                                    <option value="sonstige">Sonstige</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="ausgaben-zeitraum-filter">Zeitraum:</label>
+                                <select id="ausgaben-zeitraum-filter">
+                                    <option value="alle">Alle</option>
+                                    <option value="heute">Heute</option>
+                                    <option value="woche">Diese Woche</option>
+                                    <option value="monat">Dieser Monat</option>
+                                    <option value="quartal">Dieses Quartal</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <input type="text" id="ausgaben-search-filter" placeholder="Ausgabe suchen...">
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table class="data-table" id="ausgaben-table">
+                                <thead>
+                                    <tr>
+                                        <th>Datum</th>
+                                        <th>Beschreibung</th>
+                                        <th>Kategorie</th>
+                                        <th>Betrag (netto)</th>
+                                        <th>MwSt.</th>
+                                        <th>Betrag (brutto)</th>
+                                        <th>Status</th>
+                                        <th>Aktionen</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ausgaben-tbody">
+                                    <!-- Data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Ausgabe Form Modal (Initially Hidden) -->
+                    <div class="form-container" id="ausgabe-form-container" style="display: none;">
+                        <h3>Neue Ausgabe erfassen</h3>
+                        <form id="ausgabe-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="ausgabe-datum">Datum</label>
+                                    <input type="date" id="ausgabe-datum" name="datum" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ausgabe-kategorie">Kategorie</label>
+                                    <select id="ausgabe-kategorie" name="kategorie" required>
+                                        <option value="">Kategorie auswählen...</option>
+                                        <option value="bueromaterial">Büromaterial</option>
+                                        <option value="software">Software</option>
+                                        <option value="reisekosten">Reisekosten</option>
+                                        <option value="marketing">Marketing</option>
+                                        <option value="bewirtung">Bewirtung</option>
+                                        <option value="fortbildung">Fortbildung</option>
+                                        <option value="sonstige">Sonstige</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ausgabe-betrag-netto">Betrag (netto) €</label>
+                                    <input type="number" id="ausgabe-betrag-netto" name="betragNetto" step="0.01" min="0" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="ausgabe-mwst">MwSt. %</label>
+                                    <select id="ausgabe-mwst" name="mwst" required>
+                                        <option value="19">19%</option>
+                                        <option value="7">7%</option>
+                                        <option value="0">0%</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ausgabe-betrag-brutto">Betrag (brutto) €</label>
+                                    <input type="number" id="ausgabe-betrag-brutto" name="betragBrutto" step="0.01" min="0" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ausgabe-lieferant">Lieferant</label>
+                                    <input type="text" id="ausgabe-lieferant" name="lieferant" placeholder="Lieferant/Firma">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="ausgabe-beschreibung">Beschreibung</label>
+                                <textarea id="ausgabe-beschreibung" name="beschreibung" rows="3" required placeholder="Beschreibung der Ausgabe..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="ausgabe-beleg">Beleg hochladen</label>
+                                <input type="file" id="ausgabe-beleg" name="beleg" accept="image/*,application/pdf">
+                                <small class="form-hint">PDF, JPG, PNG bis 10MB</small>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancel-ausgabe-btn">Abbrechen</button>
+                                <button type="submit" class="btn btn-primary">Ausgabe speichern</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Neue Rechnung Section -->
+                <section id="neue-rechnung-section" class="content-section">
+                    <div class="form-container">
+                        <h2>Neue Rechnung erstellen</h2>
+                        <form id="neue-rechnung-form" class="invoice-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="rechnungsnummer">Rechnungsnummer</label>
+                                    <input type="text" id="rechnungsnummer" name="rechnungsnummer" value="RG-2024-" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="rechnungsdatum">Rechnungsdatum</label>
+                                    <input type="date" id="rechnungsdatum" name="rechnungsdatum" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="faelligkeitsdatum">Fälligkeitsdatum</label>
+                                    <input type="date" id="faelligkeitsdatum" name="faelligkeitsdatum" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="kunde">Kunde auswählen</label>
+                                    <select id="kunde" name="kunde" required>
+                                        <option value="">Kunde auswählen...</option>
+                                        <option value="mustermann">Mustermann GmbH</option>
+                                        <option value="schmidt">Schmidt & Partner</option>
+                                        <option value="weber">Weber Industries</option>
+                                        <option value="mueller">Müller AG</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="invoice-items">
+                                <h3>Rechnungspositionen</h3>
+                                <div class="items-header">
+                                    <span>Beschreibung</span>
+                                    <span>Menge</span>
+                                    <span>Einzelpreis</span>
+                                    <span>MwSt.</span>
+                                    <span>Gesamt</span>
+                                    <span>Aktion</span>
+                                </div>
+                                <div id="invoice-items-container">
+                                    <div class="invoice-item">
+                                        <input type="text" placeholder="Beschreibung" class="item-description" required>
+                                        <input type="number" placeholder="1" class="item-quantity" min="1" value="1" required>
+                                        <input type="number" placeholder="0.00" class="item-price" step="0.01" min="0" required>
+                                        <select class="item-tax">
+                                            <option value="19">19%</option>
+                                            <option value="7">7%</option>
+                                            <option value="0">0%</option>
+                                        </select>
+                                        <span class="item-total">€0.00</span>
+                                        <button type="button" class="btn-remove-item">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="button" id="add-item-btn" class="btn btn-secondary">
+                                    <i class="fas fa-plus"></i> Position hinzufügen
+                                </button>
+                            </div>
+
+                            <div class="invoice-totals">
+                                <div class="totals-row">
+                                    <span>Nettobetrag:</span>
+                                    <span id="subtotal">€0.00</span>
+                                </div>
+                                <div class="totals-row">
+                                    <span>MwSt.:</span>
+                                    <span id="tax-total">€0.00</span>
+                                </div>
+                                <div class="totals-row total">
+                                    <span>Gesamtbetrag:</span>
+                                    <span id="grand-total">€0.00</span>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="save-draft-btn">
+                                    <i class="fas fa-save"></i> Als Entwurf speichern
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane"></i> Rechnung erstellen
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Rechnungen Liste Section -->
+                <section id="rechnungen-liste-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Rechnungen Übersicht</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-primary" id="neue-rechnung-btn">
+                                <i class="fas fa-plus"></i> Neue Rechnung
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="status-filter">Status:</label>
+                            <select id="status-filter">
+                                <option value="">Alle</option>
+                                <option value="entwurf">Entwurf</option>
+                                <option value="versendet">Versendet</option>
+                                <option value="bezahlt">Bezahlt</option>
+                                <option value="ueberfaellig">Überfällig</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="date-filter">Zeitraum:</label>
+                            <select id="date-filter">
+                                <option value="alle">Alle</option>
+                                <option value="heute">Heute</option>
+                                <option value="woche">Diese Woche</option>
+                                <option value="monat">Dieser Monat</option>
+                                <option value="quartal">Dieses Quartal</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <input type="text" id="search-filter" placeholder="Suchen...">
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table" id="rechnungen-table">
+                            <thead>
+                                <tr>
+                                    <th>Rechnungsnummer</th>
+                                    <th>Kunde</th>
+                                    <th>Datum</th>
+                                    <th>Fälligkeitsdatum</th>
+                                    <th>Betrag</th>
+                                    <th>Status</th>
+                                    <th>Aktionen</th>
+                                </tr>
+                            </thead>
+                            <tbody id="rechnungen-tbody">
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Sonstige Einnahmen Section -->
+                <section id="sonstige-einnahmen-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Sonstige Einnahmen</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-primary" id="neue-einnahme-btn">
+                                <i class="fas fa-plus"></i> Neue Einnahme
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-container" id="einnahme-form-container" style="display: none;">
+                        <h3>Neue sonstige Einnahme</h3>
+                        <form id="einnahme-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="einnahme-datum">Datum</label>
+                                    <input type="date" id="einnahme-datum" name="datum" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="einnahme-betrag">Betrag (€)</label>
+                                    <input type="number" id="einnahme-betrag" name="betrag" step="0.01" min="0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="einnahme-kategorie">Kategorie</label>
+                                    <select id="einnahme-kategorie" name="kategorie" required>
+                                        <option value="">Kategorie auswählen...</option>
+                                        <option value="zinsen">Zinserträge</option>
+                                        <option value="dividenden">Dividenden</option>
+                                        <option value="mieteinnahmen">Mieteinnahmen</option>
+                                        <option value="lizenzgebuehren">Lizenzgebühren</option>
+                                        <option value="sonstige">Sonstige</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="einnahme-beschreibung">Beschreibung</label>
+                                <textarea id="einnahme-beschreibung" name="beschreibung" rows="3" required></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancel-einnahme-btn">Abbrechen</button>
+                                <button type="submit" class="btn btn-primary">Einnahme speichern</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table" id="einnahmen-table">
+                            <thead>
+                                <tr>
+                                    <th>Datum</th>
+                                    <th>Beschreibung</th>
+                                    <th>Kategorie</th>
+                                    <th>Betrag</th>
+                                    <th>Aktionen</th>
+                                </tr>
+                            </thead>
+                            <tbody id="einnahmen-tbody">
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Mahnungen Section -->
+                <section id="mahnungen-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Mahnungen</h2>
+                        <div class="section-actions">
+                            <button class="btn btn-primary" id="neue-mahnung-btn">
+                                <i class="fas fa-plus"></i> Neue Mahnung
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="filters">
+                        <div class="filter-group">
+                            <label for="mahnung-status-filter">Status:</label>
+                            <select id="mahnung-status-filter">
+                                <option value="">Alle</option>
+                                <option value="erste-mahnung">1. Mahnung</option>
+                                <option value="zweite-mahnung">2. Mahnung</option>
+                                <option value="dritte-mahnung">3. Mahnung</option>
+                                <option value="inkasso">Inkasso</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="mahnung-kunde-filter">Kunde:</label>
+                            <select id="mahnung-kunde-filter">
+                                <option value="">Alle Kunden</option>
+                                <option value="mustermann">Mustermann GmbH</option>
+                                <option value="schmidt">Schmidt & Partner</option>
+                                <option value="weber">Weber Industries</option>
+                                <option value="mueller">Müller AG</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <input type="text" id="mahnung-search-filter" placeholder="Rechnungsnummer oder Kunde suchen...">
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="data-table" id="mahnungen-table">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Fälligkeit</th>
+                                    <th>Rechnungsnr.</th>
+                                    <th>Kunde</th>
+                                    <th>Datum</th>
+                                    <th>Betrag (netto)</th>
+                                    <th>Offen (brutto)</th>
+                                    <th>Aktionen</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mahnungen-tbody">
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Mahnung Form Modal (Initially Hidden) -->
+                    <div class="form-container" id="mahnung-form-container" style="display: none;">
+                        <h3>Neue Mahnung erstellen</h3>
+                        <form id="mahnung-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="mahnung-rechnung">Rechnung auswählen</label>
+                                    <select id="mahnung-rechnung" name="rechnung" required>
+                                        <option value="">Überfällige Rechnung auswählen...</option>
+                                        <!-- Will be populated by JavaScript -->
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mahnung-stufe">Mahnstufe</label>
+                                    <select id="mahnung-stufe" name="stufe" required>
+                                        <option value="erste-mahnung">1. Mahnung</option>
+                                        <option value="zweite-mahnung">2. Mahnung</option>
+                                        <option value="dritte-mahnung">3. Mahnung</option>
+                                        <option value="inkasso">Inkasso</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mahnung-datum">Mahndatum</label>
+                                    <input type="date" id="mahnung-datum" name="datum" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="mahnung-gebuehren">Mahngebühren (€)</label>
+                                    <input type="number" id="mahnung-gebuehren" name="gebuehren" step="0.01" min="0" value="5.00">
+                                </div>
+                                <div class="form-group">
+                                    <label for="mahnung-zinsen">Verzugszinsen (€)</label>
+                                    <input type="number" id="mahnung-zinsen" name="zinsen" step="0.01" min="0" value="0.00">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mahnung-text">Mahntext</label>
+                                <textarea id="mahnung-text" name="text" rows="4" placeholder="Individueller Mahntext (optional)"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancel-mahnung-btn">Abbrechen</button>
+                                <button type="submit" class="btn btn-primary">Mahnung erstellen</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Kunden Section -->
+                <section id="kunden-section" class="content-section">
+                    <div class="kunden-header">
+                        <h1>Verwalte deine Kundenstammdaten –</h1>
+                        <h2>zentral und übersichtlich</h2>
+                    </div>
+
+                    <div class="kunden-content">
+                        <div class="kunden-info">
+                            <div class="info-cards">
+                                <div class="info-card">
+                                    <div class="card-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3>Kundenstammdaten verwalten</h3>
+                                        <p>Alle wichtigen Kundeninformationen an einem Ort</p>
+                                    </div>
+                                </div>
+
+                                <div class="info-card">
+                                    <div class="card-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3>Umsatzanalyse pro Kunde</h3>
+                                        <p>Automatische Auswertung des Kundenwertes</p>
+                                    </div>
+                                </div>
+
+                                <div class="info-card">
+                                    <div class="card-icon">
+                                        <i class="fas fa-file-invoice"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3>Schnelle Rechnungserstellung</h3>
+                                        <p>Direkt aus den Kundendaten heraus</p>
+                                    </div>
+                                </div>
+
+                                <div class="info-card">
+                                    <div class="card-icon">
+                                        <i class="fas fa-history"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h3>Vollständige Historie</h3>
+                                        <p>Alle Rechnungen und Zahlungen im Überblick</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kunden Management Section -->
+                    <div class="kunden-management">
+                        <div class="section-header">
+                            <h2>Kunden verwalten</h2>
+                            <div class="section-actions">
+                                <button class="btn btn-primary" id="neuer-kunde-btn">
+                                    <i class="fas fa-plus"></i> Neuer Kunde
+                                </button>
+                                <button class="btn btn-secondary" id="kunden-import-btn">
+                                    <i class="fas fa-upload"></i> Importieren
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="filters">
+                            <div class="filter-group">
+                                <label for="kunden-typ-filter">Kundentyp:</label>
+                                <select id="kunden-typ-filter">
+                                    <option value="">Alle Typen</option>
+                                    <option value="privat">Privatkunde</option>
+                                    <option value="unternehmen">Unternehmen</option>
+                                    <option value="freiberufler">Freiberufler</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <label for="kunden-status-filter">Status:</label>
+                                <select id="kunden-status-filter">
+                                    <option value="">Alle Status</option>
+                                    <option value="aktiv">Aktiv</option>
+                                    <option value="inaktiv">Inaktiv</option>
+                                    <option value="gesperrt">Gesperrt</option>
+                                </select>
+                            </div>
+                            <div class="filter-group">
+                                <input type="text" id="kunden-search-filter" placeholder="Kunde suchen...">
+                            </div>
+                        </div>
+
+                        <div class="kunden-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">47</span>
+                                <span class="stat-label">Aktive Kunden</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">€125,890</span>
+                                <span class="stat-label">Gesamtumsatz</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">€2,675</span>
+                                <span class="stat-label">Ø Umsatz/Kunde</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">3</span>
+                                <span class="stat-label">Neue Kunden</span>
+                            </div>
+                        </div>
+
+                        <div class="table-container">
+                            <table class="data-table" id="kunden-table">
+                                <thead>
+                                    <tr>
+                                        <th>Kundennummer</th>
+                                        <th>Name/Firma</th>
+                                        <th>Typ</th>
+                                        <th>E-Mail</th>
+                                        <th>Telefon</th>
+                                        <th>Umsatz (YTD)</th>
+                                        <th>Status</th>
+                                        <th>Aktionen</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="kunden-tbody">
+                                    <!-- Data will be populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Kunde Form Modal (Initially Hidden) -->
+                    <div class="form-container" id="kunde-form-container" style="display: none;">
+                        <h3>Neuer Kunde</h3>
+                        <form id="kunde-form">
+                            <div class="form-section">
+                                <h4>Grunddaten</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="kunde-typ">Kundentyp</label>
+                                        <select id="kunde-typ" name="typ" required>
+                                            <option value="">Typ auswählen...</option>
+                                            <option value="privat">Privatkunde</option>
+                                            <option value="unternehmen">Unternehmen</option>
+                                            <option value="freiberufler">Freiberufler</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kunde-nummer">Kundennummer</label>
+                                        <input type="text" id="kunde-nummer" name="nummer" placeholder="Automatisch generiert" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="form-row" id="unternehmen-fields" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="kunde-firmenname">Firmenname</label>
+                                        <input type="text" id="kunde-firmenname" name="firmenname" placeholder="Firmenname">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kunde-ustid">USt-IdNr.</label>
+                                        <input type="text" id="kunde-ustid" name="ustid" placeholder="DE123456789">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="kunde-vorname">Vorname</label>
+                                        <input type="text" id="kunde-vorname" name="vorname" placeholder="Max" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kunde-nachname">Nachname</label>
+                                        <input type="text" id="kunde-nachname" name="nachname" placeholder="Mustermann" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Kontaktdaten</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="kunde-email">E-Mail</label>
+                                        <input type="email" id="kunde-email" name="email" placeholder="max@mustermann.de" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kunde-telefon">Telefon</label>
+                                        <input type="tel" id="kunde-telefon" name="telefon" placeholder="+49 123 456789">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="kunde-website">Website</label>
+                                        <input type="url" id="kunde-website" name="website" placeholder="https://www.mustermann.de">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Adresse</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="kunde-strasse">Straße & Hausnummer</label>
+                                        <input type="text" id="kunde-strasse" name="strasse" placeholder="Musterstraße 123" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="kunde-plz">PLZ</label>
+                                        <input type="text" id="kunde-plz" name="plz" placeholder="12345" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kunde-ort">Ort</label>
+                                        <input type="text" id="kunde-ort" name="ort" placeholder="Musterstadt" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kunde-land">Land</label>
+                                        <select id="kunde-land" name="land" required>
+                                            <option value="DE" selected>Deutschland</option>
+                                            <option value="AT">Österreich</option>
+                                            <option value="CH">Schweiz</option>
+                                            <option value="FR">Frankreich</option>
+                                            <option value="NL">Niederlande</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <h4>Zusätzliche Informationen</h4>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="kunde-zahlungsziel">Zahlungsziel (Tage)</label>
+                                        <select id="kunde-zahlungsziel" name="zahlungsziel">
+                                            <option value="14">14 Tage</option>
+                                            <option value="30" selected>30 Tage</option>
+                                            <option value="60">60 Tage</option>
+                                            <option value="sofort">Sofort</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="kunde-waehrung">Währung</label>
+                                        <select id="kunde-waehrung" name="waehrung">
+                                            <option value="EUR" selected>Euro (€)</option>
+                                            <option value="USD">US-Dollar ($)</option>
+                                            <option value="GBP">Britisches Pfund (£)</option>
+                                            <option value="CHF">Schweizer Franken (CHF)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="kunde-notizen">Interne Notizen</label>
+                                    <textarea id="kunde-notizen" name="notizen" rows="3" placeholder="Zusätzliche Informationen zum Kunden..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-secondary" id="cancel-kunde-btn">Abbrechen</button>
+                                <button type="submit" class="btn btn-primary">Kunde speichern</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Einstellungen Section -->
+                <section id="einstellungen-section" class="content-section">
+                    <div class="einstellungen-header">
+                        <h1>Systemeinstellungen</h1>
+                        <h2>Konfiguriere dein TaxPro System</h2>
+                    </div>
+
+                    <div class="einstellungen-container">
+                        <!-- Navigation Tabs -->
+                        <div class="settings-tabs">
+                            <button class="tab-btn active" data-tab="benutzer">
+                                <i class="fas fa-user"></i> Benutzer
+                            </button>
+                            <button class="tab-btn" data-tab="buchhaltung">
+                                <i class="fas fa-calculator"></i> Buchhaltung
+                            </button>
+                            <button class="tab-btn" data-tab="unternehmen">
+                                <i class="fas fa-building"></i> Unternehmen
+                            </button>
+                            <button class="tab-btn" data-tab="system">
+                                <i class="fas fa-cog"></i> System
+                            </button>
+                            <button class="tab-btn" data-tab="briefpapier">
+                                <i class="fas fa-file-alt"></i> Briefpapier
+                            </button>
+                            <button class="tab-btn" data-tab="textvorlagen">
+                                <i class="fas fa-align-left"></i> Textvorlagen
+                            </button>
+                        </div>
+
+                        <!-- Benutzer Settings -->
+                        <div class="settings-content active" id="benutzer-settings">
+                            <div class="settings-section">
+                                <h3>Benutzerprofil</h3>
+                                <div class="form-container">
+                                    <form id="benutzer-form">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="benutzer-vorname">Vorname</label>
+                                                <input type="text" id="benutzer-vorname" value="Max" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="benutzer-nachname">Nachname</label>
+                                                <input type="text" id="benutzer-nachname" value="Mustermann" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="benutzer-email">E-Mail</label>
+                                                <input type="email" id="benutzer-email" value="max@mustermann.de" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="benutzer-telefon">Telefon</label>
+                                                <input type="tel" id="benutzer-telefon" value="+49 123 456789">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="benutzer-sprache">Sprache</label>
+                                            <select id="benutzer-sprache">
+                                                <option value="de" selected>Deutsch</option>
+                                                <option value="en">English</option>
+                                                <option value="fr">Français</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary">Speichern</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3>Passwort ändern</h3>
+                                <div class="form-container">
+                                    <form id="passwort-form">
+                                        <div class="form-group">
+                                            <label for="current-password">Aktuelles Passwort</label>
+                                            <input type="password" id="current-password" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="new-password">Neues Passwort</label>
+                                            <input type="password" id="new-password" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirm-password">Passwort bestätigen</label>
+                                            <input type="password" id="confirm-password" required>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary">Passwort ändern</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buchhaltung Settings -->
+                        <div class="settings-content" id="buchhaltung-settings">
+                            <div class="settings-section">
+                                <h3>Allgemeine Buchhaltungseinstellungen</h3>
+                                <div class="form-container">
+                                    <form id="buchhaltung-form">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="wirtschaftsjahr">Wirtschaftsjahr</label>
+                                                <select id="wirtschaftsjahr">
+                                                    <option value="kalenderjahr" selected>Kalenderjahr (1.1. - 31.12.)</option>
+                                                    <option value="abweichend">Abweichendes Wirtschaftsjahr</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="default-mwst">Standard MwSt.-Satz</label>
+                                                <select id="default-mwst">
+                                                    <option value="19" selected>19%</option>
+                                                    <option value="7">7%</option>
+                                                    <option value="0">0%</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="zahlungsziel">Standard Zahlungsziel (Tage)</label>
+                                                <input type="number" id="zahlungsziel" value="30" min="1" max="365">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="skonto">Skonto (%)</label>
+                                                <input type="number" id="skonto" value="2" min="0" max="10" step="0.1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rechnungsnummer-format">Rechnungsnummer Format</label>
+                                            <select id="rechnungsnummer-format">
+                                                <option value="RG-YYYY-{counter}" selected>RG-YYYY-001</option>
+                                                <option value="RE{YYYY}{counter}">RE2024001</option>
+                                                <option value="{counter}/YYYY">001/2024</option>
+                                                <option value="custom">Benutzerdefiniert</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary">Speichern</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3>Umsatzsteuer-Voranmeldung</h3>
+                                <div class="form-container">
+                                    <form id="umsatzsteuer-form">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="voranmeldung-rhythmus">Voranmeldungsrhythmus</label>
+                                                <select id="voranmeldung-rhythmus">
+                                                    <option value="monatlich" selected>Monatlich</option>
+                                                    <option value="quartalsweise">Quartalsweise</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="finanzamt">Finanzamt</label>
+                                                <input type="text" id="finanzamt" placeholder="Finanzamt München">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="steuernummer">Steuernummer</label>
+                                                <input type="text" id="steuernummer" placeholder="123/456/78901">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="ust-id">USt-IdNr.</label>
+                                                <input type="text" id="ust-id" placeholder="DE123456789">
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary">Speichern</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Unternehmen Settings -->
+                        <div class="settings-content" id="unternehmen-settings">
+                            <div class="settings-section">
+                                <h3>Unternehmensdaten</h3>
+                                <div class="form-container">
+                                    <form id="unternehmen-form">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="firmenname">Firmenname</label>
+                                                <input type="text" id="firmenname" value="Mustermann GmbH" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rechtsform">Rechtsform</label>
+                                                <select id="rechtsform">
+                                                    <option value="einzelunternehmen">Einzelunternehmen</option>
+                                                    <option value="gbr">GbR</option>
+                                                    <option value="ohg">OHG</option>
+                                                    <option value="kg">KG</option>
+                                                    <option value="gmbh" selected>GmbH</option>
+                                                    <option value="ag">AG</option>
+                                                    <option value="ug">UG</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="geschaeftsfuehrer">Geschäftsführer</label>
+                                                <input type="text" id="geschaeftsfuehrer" value="Max Mustermann">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="handelsregister">Handelsregister</label>
+                                                <input type="text" id="handelsregister" placeholder="HRB 123456">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="firma-strasse">Straße & Hausnummer</label>
+                                                <input type="text" id="firma-strasse" value="Musterstraße 123" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="firma-plz">PLZ</label>
+                                                <input type="text" id="firma-plz" value="12345" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="firma-ort">Ort</label>
+                                                <input type="text" id="firma-ort" value="Musterstadt" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="firma-land">Land</label>
+                                                <select id="firma-land">
+                                                    <option value="DE" selected>Deutschland</option>
+                                                    <option value="AT">Österreich</option>
+                                                    <option value="CH">Schweiz</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="firma-telefon">Telefon</label>
+                                                <input type="tel" id="firma-telefon" value="+49 123 456789">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="firma-email">E-Mail</label>
+                                                <input type="email" id="firma-email" value="info@mustermann.de">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="firma-website">Website</label>
+                                                <input type="url" id="firma-website" value="https://www.mustermann.de">
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary">Speichern</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3>Bankverbindung</h3>
+                                <div class="form-container">
+                                    <form id="bank-form">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="bank-name">Bankname</label>
+                                                <input type="text" id="bank-name" value="Deutsche Bank">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="iban">IBAN</label>
+                                                <input type="text" id="iban" value="DE89 1234 5678 9012 3456 78">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="bic">BIC</label>
+                                                <input type="text" id="bic" value="DEUTDEFF">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="kontoinhaber">Kontoinhaber</label>
+                                                <input type="text" id="kontoinhaber" value="Mustermann GmbH">
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary">Speichern</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- System Settings -->
+                        <div class="settings-content" id="system-settings">
+                            <div class="settings-section">
+                                <h3>Systemeinstellungen</h3>
+                                <div class="form-container">
+                                    <form id="system-form">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="theme">Design-Theme</label>
+                                                <select id="theme">
+                                                    <option value="light" selected>Hell</option>
+                                                    <option value="dark">Dunkel</option>
+                                                    <option value="auto">Automatisch</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="currency">Standardwährung</label>
+                                                <select id="currency">
+                                                    <option value="EUR" selected>Euro (€)</option>
+                                                    <option value="USD">US-Dollar ($)</option>
+                                                    <option value="GBP">Britisches Pfund (£)</option>
+                                                    <option value="CHF">Schweizer Franken (CHF)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="timezone">Zeitzone</label>
+                                                <select id="timezone">
+                                                    <option value="Europe/Berlin" selected>Europa/Berlin (CET/CEST)</option>
+                                                    <option value="Europe/Vienna">Europa/Wien (CET/CEST)</option>
+                                                    <option value="Europe/Zurich">Europa/Zürich (CET/CEST)</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="date-format">Datumsformat</label>
+                                                <select id="date-format">
+                                                    <option value="DD.MM.YYYY" selected>DD.MM.YYYY</option>
+                                                    <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+                                                    <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="auto-backup" checked>
+                                                <label for="auto-backup">Automatische Datensicherung aktivieren</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="checkbox-group">
+                                                <input type="checkbox" id="email-notifications" checked>
+                                                <label for="email-notifications">E-Mail-Benachrichtigungen aktivieren</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary">Speichern</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <div class="settings-section">
+                                <h3>Datensicherung & Export</h3>
+                                <div class="form-container">
+                                    <div class="backup-section">
+                                        <div class="backup-item">
+                                            <div class="backup-info">
+                                                <h4>Daten exportieren</h4>
+                                                <p>Exportiere alle Daten als CSV oder JSON</p>
+                                            </div>
+                                            <div class="backup-actions">
+                                                <button class="btn btn-secondary" id="export-csv-btn">
+                                                    <i class="fas fa-file-csv"></i> CSV Export
+                                                </button>
+                                                <button class="btn btn-secondary" id="export-json-btn">
+                                                    <i class="fas fa-file-code"></i> JSON Export
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="backup-item">
+                                            <div class="backup-info">
+                                                <h4>Daten importieren</h4>
+                                                <p>Importiere Daten aus einer Sicherungsdatei</p>
+                                            </div>
+                                            <div class="backup-actions">
+                                                <input type="file" id="import-file" accept=".csv,.json" style="display: none;">
+                                                <button class="btn btn-secondary" id="import-btn">
+                                                    <i class="fas fa-upload"></i> Daten importieren
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Briefpapier Settings -->
+                        <div class="settings-content" id="briefpapier-settings">
+                            <div class="settings-section">
+                                <h3>Briefpapier-Design</h3>
+                                <div class="form-container">
+                                    <form id="briefpapier-form">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="logo-upload">Firmenlogo hochladen</label>
+                                                <input type="file" id="logo-upload" accept="image/*">
+                                                <small class="form-hint">PNG, JPG bis 2MB. Empfohlene Größe: 300x100px</small>
+                                            </div>
+                                        </div>
+                                        <div class="logo-preview" id="logo-preview" style="display: none;">
+                                            <img id="logo-image" alt="Logo Vorschau">
+                                            <button type="button" class="btn btn-secondary" id="remove-logo">Logo entfernen</button>
+                                        </div>
+                                        
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="primary-color">Primärfarbe</label>
+                                                <input type="color" id="primary-color" value="#3b82f6">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="secondary-color">Sekundärfarbe</label>
+                                                <input type="color" id="secondary-color" value="#64748b">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label for="font-family">Schriftart</label>
+                                                <select id="font-family">
+                                                    <option value="Arial" selected>Arial</option>
+                                                    <option value="Helvetica">Helvetica</option>
+                                                    <option value="Times New Roman">Times New Roman</option>
+                                                    <option value="Calibri">Calibri</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="font-size">Schriftgröße</label>
+                                                <select id="font-size">
+                                                    <option value="10">10pt</option>
+                                                    <option value="11" selected>11pt</option>
+                                                    <option value="12">12pt</option>
+                                                    <option value="14">14pt</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="footer-text">Fußzeile</label>
+                                            <textarea id="footer-text" rows="3" placeholder="Zusätzlicher Text für die Fußzeile..."></textarea>
+                                        </div>
+                                        
+                                        <div class="form-actions">
+                                            <button type="submit" class="btn btn-primary">Speichern</button>
+                                            <button type="button" class="btn btn-secondary" id="preview-briefpapier">Vorschau</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Textvorlagen Settings -->
+                        <div class="settings-content" id="textvorlagen-settings">
+                            <div class="settings-section">
+                                <h3>Textvorlagen verwalten</h3>
+                                <div class="textvorlagen-tabs">
+                                    <button class="text-tab-btn active" data-text-tab="rechnungen">Rechnungen</button>
+                                    <button class="text-tab-btn" data-text-tab="angebote">Angebote</button>
+                                    <button class="text-tab-btn" data-text-tab="mahnungen">Mahnungen</button>
+                                    <button class="text-tab-btn" data-text-tab="emails">E-Mails</button>
+                                </div>
+
+                                <!-- Rechnung Templates -->
+                                <div class="text-template-content active" id="rechnungen-templates">
+                                    <div class="form-container">
+                                        <form id="rechnung-template-form">
+                                            <div class="form-group">
+                                                <label for="rechnung-betreff">Betreff</label>
+                                                <input type="text" id="rechnung-betreff" value="Rechnung {nummer} vom {datum}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rechnung-einleitung">Einleitungstext</label>
+                                                <textarea id="rechnung-einleitung" rows="3">Sehr geehrte Damen und Herren,
+
+hiermit stellen wir Ihnen folgende Leistungen in Rechnung:</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rechnung-schluss">Schlusstext</label>
+                                                <textarea id="rechnung-schluss" rows="3">Wir danken Ihnen für Ihren Auftrag und bitten um Überweisung des Rechnungsbetrages innerhalb von {zahlungsziel} Tagen.
+
+Mit freundlichen Grüßen
+{firmenname}</textarea>
+                                            </div>
+                                            <div class="form-actions">
+                                                <button type="submit" class="btn btn-primary">Speichern</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- Angebot Templates -->
+                                <div class="text-template-content" id="angebote-templates">
+                                    <div class="form-container">
+                                        <form id="angebot-template-form">
+                                            <div class="form-group">
+                                                <label for="angebot-betreff">Betreff</label>
+                                                <input type="text" id="angebot-betreff" value="Angebot {nummer} vom {datum}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="angebot-einleitung">Einleitungstext</label>
+                                                <textarea id="angebot-einleitung" rows="3">Sehr geehrte Damen und Herren,
+
+vielen Dank für Ihre Anfrage. Gerne unterbreiten wir Ihnen folgendes Angebot:</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="angebot-schluss">Schlusstext</label>
+                                                <textarea id="angebot-schluss" rows="3">Dieses Angebot ist 30 Tage gültig. Wir freuen uns auf Ihre Bestellung.
+
+Mit freundlichen Grüßen
+{firmenname}</textarea>
+                                            </div>
+                                            <div class="form-actions">
+                                                <button type="submit" class="btn btn-primary">Speichern</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- Mahnung Templates -->
+                                <div class="text-template-content" id="mahnungen-templates">
+                                    <div class="form-container">
+                                        <div class="mahnung-template-types">
+                                            <button class="mahnung-type-btn active" data-mahnung-type="erste">1. Mahnung</button>
+                                            <button class="mahnung-type-btn" data-mahnung-type="zweite">2. Mahnung</button>
+                                            <button class="mahnung-type-btn" data-mahnung-type="dritte">3. Mahnung</button>
+                                        </div>
+
+                                        <div class="mahnung-template active" id="erste-mahnung-template">
+                                            <form id="erste-mahnung-form">
+                                                <div class="form-group">
+                                                    <label for="erste-mahnung-betreff">Betreff</label>
+                                                    <input type="text" id="erste-mahnung-betreff" value="1. Mahnung - Rechnung {rechnungsnummer}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="erste-mahnung-text">Mahntext</label>
+                                                    <textarea id="erste-mahnung-text" rows="5">Sehr geehrte Damen und Herren,
+
+zu unserer Rechnung {rechnungsnummer} vom {rechnungsdatum} über {betrag} konnten wir bisher keinen Zahlungseingang verzeichnen.
+
+Wir bitten Sie, den offenen Betrag innerhalb von 10 Tagen zu begleichen.
+
+Mit freundlichen Grüßen</textarea>
+                                                </div>
+                                                <div class="form-actions">
+                                                    <button type="submit" class="btn btn-primary">Speichern</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Email Templates -->
+                                <div class="text-template-content" id="emails-templates">
+                                    <div class="form-container">
+                                        <form id="email-template-form">
+                                            <div class="form-group">
+                                                <label for="email-signature">E-Mail Signatur</label>
+                                                <textarea id="email-signature" rows="5">Mit freundlichen Grüßen
+
+{vorname} {nachname}
+{firmenname}
+
+Telefon: {telefon}
+E-Mail: {email}
+Web: {website}</textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rechnung-email-betreff">Rechnung per E-Mail - Betreff</label>
+                                                <input type="text" id="rechnung-email-betreff" value="Ihre Rechnung {nummer} von {firmenname}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="rechnung-email-text">Rechnung per E-Mail - Text</label>
+                                                <textarea id="rechnung-email-text" rows="4">Sehr geehrte Damen und Herren,
+
+anbei übersenden wir Ihnen unsere Rechnung {nummer} vom {datum}.
+
+Vielen Dank für Ihr Vertrauen.</textarea>
+                                            </div>
+                                            <div class="form-actions">
+                                                <button type="submit" class="btn btn-primary">Speichern</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize Feather Icons immediately
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof feather !== 'undefined') {
+                feather.replace();
+                
+                // Re-initialize icons every 500ms for dynamic content
+                setInterval(function() {
+                    feather.replace();
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
